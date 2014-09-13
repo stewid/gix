@@ -17,7 +17,7 @@ Type: Package
 BugReports: https://github.com/stewid/gix/issues
 LazyData: true
 Biarch: true
-NeedsCompilation: yes
+NeedsCompilation: no
 Date: 2014-09-13
 Collate:
     'gix.r'
