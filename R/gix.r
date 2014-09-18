@@ -15,11 +15,29 @@
 ##  with this program; if not, write to the Free Software Foundation, Inc.,
 ##  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-##' Search a Git repository
+##' Search a git repository
 ##'
-##' gix is a package to index and search a Git repository using the
-##' Xapian search engine.
-##' @docType package
-##' @name gix
-##' @include gix.r
-NULL
+##' @rdname gix-methods
+##' @docType methods
+##' @param path Path to the repository
+##' @param query The search query
+##' @return :TODO:DOCUMENTATION:
+##' @keywords methods
+setGeneric("gix",
+           signature = c("path", "query"),
+           function(path, query)
+           standardGeneric("gix"))
+
+##' @rdname gix-methods
+##' @export
+setMethod("gix",
+          signature(path = "character", query = "character"),
+          function(path, query)
+          {
+              repo <- repository(path)
+              xapr_search(
+                  file.path(workdir(repo), ".xapian"),
+                  terms    = query,
+                  wildcard = TRUE)
+          }
+)
