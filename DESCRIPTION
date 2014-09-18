@@ -21,3 +21,5 @@ NeedsCompilation: no
 Date: 2014-09-13
 Collate:
     'gix.r'
+    'gix-package.r'
+    'gixit.r'
