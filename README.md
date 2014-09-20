@@ -5,8 +5,10 @@
 `gix` is an R package that aims to index and search a Git repository
 using the [Xapian](http://xapian.org/) search engine.
 
-**NOTE:** The package is in a very early development phase and not
-functional yet.
+**NOTE:** The package is in a very early development phase. Functions
+and documentation may be incomplete and subject to
+change. Suggestions, bugs, forks and pull requests are
+appreciated. Get in touch.
 
 ## Installation
 
