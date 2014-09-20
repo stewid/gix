@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/stewid/gix.png)](https://travis-ci.org/stewid/gix)
+
 # Introduction
 
 `gix` is an R package that aims to index and search a Git repository
