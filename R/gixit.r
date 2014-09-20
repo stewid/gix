@@ -15,30 +15,13 @@
 ##  with this program; if not, write to the Free Software Foundation, Inc.,
 ##  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-gixit_tree <- function(tree_obj, path) {
-    obj <- lookup(tree_obj@repo, tree_obj@id[1])
-
-    for (i in seq_len(length(tree_obj))) {
-        obj <- lookup(tree_obj@repo, tree_obj@id[i])
-
-        if (is_blob(obj)) {
-            xapr_index(
-                path    = path,
-                doc     = tree_obj@name[i],
-                content = content(obj, split=FALSE),
-                id      = paste0("Q", obj@sha))
-        } else {
-            gixit_tree(obj, path)
-        }
-    }
-}
-
 ##' Index a git repository
 ##'
 ##' @rdname gixit-methods
 ##' @docType methods
 ##' @param path Path to the repository
-##' @return invisible(NULL)
+##' @param ... Additional arguments affecting the indexing
+##' ##' @return invisible(NULL)
 ##' @keywords methods
 setGeneric("gixit",
            signature = "path",
@@ -49,24 +32,53 @@ setGeneric("gixit",
 ##' @param callbacks A list of callback functions to enable more
 ##' control over how blob's are indexed. Each list item, named by file
 ##' extension, is a function with the two arguments 'content' and
-##' 'sha'.
+##' 'sha'. Note: not implemented yet.
+##' @param github Optional repository address in the format
+##' 'username/repo'. Generates a link to the content on github in the
+##' document area. Default is NULL.
+##' @return invisible NULL
 ##' @export
 setMethod("gixit",
           signature(path = "character"),
-          function(path, callbacks)
+          function(path,
+                   callbacks = NULL,
+                   github    = NULL)
           {
               repo <- repository(path)
 
               ## List all objects in the repository
-              odb <- odb_list(repo)
+              blobs <- odb_blobs(repo)
 
-              ## Select only commits
-              odb <- odb[sapply(odb, function(x) identical(x@type, "commit"))]
+              ## :TODO:FIXME: Design a default index plan. Blobs might
+              ## contain duplicate entries for each sha with different
+              ## path and name. For now, index only the content of
+              ## unique sha's.
+              blobs <- blobs[!duplicated(blobs$sha),]
 
-              for (i in seq_len(length(odb))) {
-                  commit_obj <- lookup(repo, odb[[i]]@sha)
-                  tree_obj <- tree(commit_obj)
-                  gixit_tree(tree_obj, file.path(path, ".xapian"))
+              content <- sapply(seq_len(nrow(blobs)), function(i) {
+                  content(lookup(repo, blobs$sha[i]), split = FALSE)
+              })
+
+              if (is.null(github)) {
+                  doc <- blobs$sha
+              } else {
+                  ## Create a link to the content on github
+                  doc <- paste0("https://github.com/",
+                                github,
+                                "/blob/",
+                                blobs$commit,
+                                ifelse(nchar(blobs$path) > 0,
+                                       paste0("/", blobs$path, "/"),
+                                       "/"),
+                                blobs$name)
               }
+
+              xapr_index(
+                  path    = file.path(path, ".xapian"),
+                  doc     = doc,
+                  content = content,
+                  id      = paste0("Q", blobs$sha))
+
+              invisible(NULL)
           }
 )

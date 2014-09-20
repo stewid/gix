@@ -7,18 +7,27 @@
 \usage{
 gixit(path, ...)
 
-\S4method{gixit}{character}(path, callbacks)
+\S4method{gixit}{character}(path, callbacks = NULL, github = NULL)
 }
 \arguments{
 \item{path}{Path to the repository}
 
+\item{...}{Additional arguments affecting the indexing
+##'}
+
 \item{callbacks}{A list of callback functions to enable more
 control over how blob's are indexed. Each list item, named by file
 extension, is a function with the two arguments 'content' and
-'sha'.}
+'sha'. Note: not implemented yet.}
+
+\item{github}{Optional repository address in the format
+'username/repo'. Generates a link to the content on github in the
+document area. Default is NULL.}
 }
 \value{
 invisible(NULL)
+
+invisible NULL
 }
 \description{
 Index a git repository
