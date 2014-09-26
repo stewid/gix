@@ -55,29 +55,25 @@ setMethod("gixit",
               ## unique sha's.
               blobs <- blobs[!duplicated(blobs$sha),]
 
-              content <- sapply(seq_len(nrow(blobs)), function(i) {
+              blobs$content <- sapply(seq_len(nrow(blobs)), function(i) {
                   content(lookup(repo, blobs$sha[i]), split = FALSE)
               })
 
               if (is.null(github)) {
-                  doc <- blobs$sha
+                  blobs$data <- blobs$sha
               } else {
                   ## Create a link to the content on github
-                  doc <- paste0("https://github.com/",
-                                github,
-                                "/blob/",
-                                blobs$commit,
-                                ifelse(nchar(blobs$path) > 0,
-                                       paste0("/", blobs$path, "/"),
-                                       "/"),
-                                blobs$name)
+                  blobs$data <- paste0("https://github.com/",
+                                       github,
+                                       "/blob/",
+                                       blobs$commit,
+                                       ifelse(nchar(blobs$path) > 0,
+                                              paste0("/", blobs$path, "/"),
+                                              "/"),
+                                       blobs$name)
               }
 
-              xapr_index(
-                  path    = file.path(path, ".xapian"),
-                  doc     = doc,
-                  content = content,
-                  id      = paste0("Q", blobs$sha))
+              xindex(data ~ X*. + Q:sha, blobs, file.path(path, ".xapian"))
 
               invisible(NULL)
           }

@@ -35,9 +35,12 @@ setMethod("gix",
           function(path, query)
           {
               repo <- repository(path)
-              xapr_search(
-                  file.path(workdir(repo), ".xapian"),
-                  terms    = query,
+              xsearch(
+                  path     = file.path(workdir(repo), ".xapian"),
+                  query    = query,
+                  prefix   = data.frame(
+                      field  = c("author", "sha"),
+                      prefix = c("A", "XSHA")),
                   wildcard = TRUE)
           }
 )
