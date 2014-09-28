@@ -5,14 +5,14 @@
 \alias{gix,character,character-method}
 \title{Search a git repository}
 \usage{
-gix(path, query)
+gix(query, path)
 
-\S4method{gix}{character,character}(path, query)
+\S4method{gix}{character,character}(query, path)
 }
 \arguments{
-\item{path}{Path to the repository}
-
 \item{query}{The search query}
+
+\item{path}{Path to the repository}
 }
 \value{
 :TODO:DOCUMENTATION:
