@@ -19,25 +19,25 @@
 ##'
 ##' @rdname gix-methods
 ##' @docType methods
-##' @param path Path to the repository
 ##' @param query The search query
+##' @param path Path to the repository
 ##' @return :TODO:DOCUMENTATION:
 ##' @keywords methods
 setGeneric("gix",
-           signature = c("path", "query"),
-           function(path, query)
+           signature = c("query", "path"),
+           function(query, path)
            standardGeneric("gix"))
 
 ##' @rdname gix-methods
 ##' @export
 setMethod("gix",
-          signature(path = "character", query = "character"),
-          function(path, query)
+          signature(query = "character", path = "character"),
+          function(query, path)
           {
               repo <- repository(path)
               xsearch(
-                  path     = file.path(workdir(repo), ".xapian"),
                   query    = query,
+                  path     = file.path(workdir(repo), ".xapian"),
                   prefix   = data.frame(
                       field  = c("author", "sha"),
                       prefix = c("A", "XSHA")),
