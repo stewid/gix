@@ -2,17 +2,17 @@
 \docType{methods}
 \name{gix}
 \alias{gix}
-\alias{gix,character,character-method}
+\alias{gix,git_repository,character-method}
 \title{Search a git repository}
 \usage{
-gix(query, path)
+gix(repo, query)
 
-\S4method{gix}{character,character}(query, path)
+\S4method{gix}{git_repository,character}(repo, query)
 }
 \arguments{
-\item{query}{The search query}
+\item{repo}{The repository}
 
-\item{path}{Path to the repository}
+\item{query}{The search query}
 }
 \value{
 :TODO:DOCUMENTATION:
