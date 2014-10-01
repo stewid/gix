@@ -73,7 +73,9 @@ setMethod("gixit",
                                        blobs$name)
               }
 
-              xindex(data ~ X*. + Q:sha, blobs, file.path(path, ".xapian"))
+              xindex(. ~ X*path + X*sha + A:author + Q:sha,
+                     blobs,
+                     file.path(path, ".xapian"))
 
               invisible(NULL)
           }
