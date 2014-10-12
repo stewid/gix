@@ -59,21 +59,19 @@ setMethod("gixit",
                   content(lookup(repo, blobs$sha[i]), split = FALSE)
               })
 
-              if (is.null(github)) {
-                  blobs$data <- blobs$sha
-              } else {
+              if (!is.null(github)) {
                   ## Create a link to the content on github
-                  blobs$data <- paste0("https://github.com/",
-                                       github,
-                                       "/blob/",
-                                       blobs$commit,
-                                       ifelse(nchar(blobs$path) > 0,
-                                              paste0("/", blobs$path, "/"),
-                                              "/"),
-                                       blobs$name)
+                  blobs$url <- paste0("https://github.com/",
+                                      github,
+                                      "/blob/",
+                                      blobs$commit,
+                                      ifelse(nchar(blobs$path) > 0,
+                                             paste0("/", blobs$path, "/"),
+                                             "/"),
+                                      blobs$name)
               }
 
-              xindex(. ~ X*path + X*sha + A:author + Q:sha,
+              xindex(. - content ~ X*path + X*sha + A:author + Q:sha + content,
                      blobs,
                      file.path(path, ".xapian"))
 
