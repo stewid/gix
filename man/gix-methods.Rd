@@ -2,10 +2,13 @@
 \docType{methods}
 \name{gix}
 \alias{gix}
+\alias{gix,character,character-method}
 \alias{gix,git_repository,character-method}
 \title{Search a git repository}
 \usage{
 gix(repo, query)
+
+\S4method{gix}{character,character}(repo, query)
 
 \S4method{gix}{git_repository,character}(repo, query)
 }

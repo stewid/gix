@@ -32,6 +32,17 @@ setGeneric("gix",
 ##' @rdname gix-methods
 ##' @export
 setMethod("gix",
+          signature(repo  = "character",
+                    query = "character"),
+          function(repo, query)
+          {
+              gix(repository(repo), query)
+          }
+)
+
+##' @rdname gix-methods
+##' @export
+setMethod("gix",
           signature(repo  = "git_repository",
                     query = "character"),
           function(repo, query)
