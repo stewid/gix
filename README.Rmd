@@ -5,17 +5,43 @@
 `gix` is an R package that aims to index and search a Git repository
 using the [Xapian](http://xapian.org/) search engine.
 
-**NOTE:** The package is in a very early development phase. Functions
-and documentation may be incomplete and subject to
-change. Suggestions, bugs, forks and pull requests are
-appreciated. Get in touch.
+## Index a repository
+
+Index the content of a git repository to documents with the Xapian
+search engine. A `document` is the data returned from a search. The
+indexing creates a database located in the `.xapian` folder in the
+repository.
+
+```{r, index, message=FALSE}
+library(gix)
+
+## Index the 'gix' repository. (Current directory)
+gixit(".", github = "stewid/gix")
+```
+
+## Search a repository
+
+```{r, search_author, message=FALSE}
+## Search for author Widgren and display url to blob on GitHub
+gix(".", "author:widgren")$url
+```
+
+```{r, search_sha, message=FALSE}
+## Search for sha that starts with 'd7'
+gix(".", "sha:d7*")[, c("sha", "url")]
+```
 
 ## Installation
+
+The following two R packages must be installed:
+
+ - [xapr](https://github.com/stewid/xapr)
+ - [git2r](https://github.com/ropensci/git2r)
 
 To install the development version of `gix`, it's easiest to use the
 devtools package:
 
-```r
+```{r, install, eval = FALSE}
 # install.packages("devtools")
 library(devtools)
 install_github("stewid/gix")
@@ -27,6 +53,11 @@ $ git clone https://github.com/stewid/gix.git
 $ cd gix
 $ make install
 ```
+
+**NOTE:** The package is in a very early development phase. Functions
+and documentation may be incomplete and subject to
+change. Suggestions, bugs, forks and pull requests are
+appreciated. Get in touch.
 
 # License
 
