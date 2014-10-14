@@ -1,9 +1,8 @@
 Package: gix
 Title: Search a Git repository
 Description: gix is a package to index and search a Git repository
-    using the Xapian search engine. NOTE: The package is in a very
-    early development phase and not functional yet.
-Version: 0.0.1
+    using the Xapian search engine.
+Version: 0.1
 Authors@R: c(person("Stefan", "Widgren", role = c("aut", "cre"),
     email = "stefan.widgren@gmail.com"))
 Imports:
@@ -19,7 +18,7 @@ BugReports: https://github.com/stewid/gix/issues
 LazyData: true
 Biarch: true
 NeedsCompilation: no
-Date: 2014-09-13
+Date: 2014-10-14
 Collate:
     'gix.r'
     'gix-package.r'

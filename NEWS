@@ -1,3 +1,13 @@
+gix 0.1
+-------
+
+NEW FEATURES
+
+* gixit - method to index a git repository
+
+* gix - method to search a git repository
+
+
 gix 0.0.1
 -----------
 
