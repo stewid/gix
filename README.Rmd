@@ -31,6 +31,11 @@ gix(".", "author:widgren")$url
 gix(".", "sha:d7*")[, c("sha", "url")]
 ```
 
+```{r, search_content, message=FALSE}
+## Search for 'biarch' and view date of author commit and url
+gix(".", "biarch")[, c("when", "url")]
+```
+
 ## Installation
 
 The following two R packages must be installed:

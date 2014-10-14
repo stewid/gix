@@ -54,6 +54,27 @@ gix(".", "sha:d7*")[, c("sha", "url")]
 ## 1 https://github.com/stewid/gix/blob/1f25d61fff69361e748efbcf07b87846d81ecd1d/LICENSE
 ```
 
+
+```r
+## Search for 'biarch' and view date of author commit and url
+gix(".", "biarch")[, c("when", "url")]
+```
+
+```
+##                   when
+## 2  2014-09-13 23:03:38
+## 10 2014-09-13 23:27:32
+## 16 2014-09-18 18:44:32
+## 24 2014-09-20 14:40:54
+## 32 2014-10-01 14:18:34
+##                                                                                        url
+## 2  https://github.com/stewid/gix/blob/c6fc2f018ee81cf973495dc359995cdac6fb4641/DESCRIPTION
+## 10 https://github.com/stewid/gix/blob/8906a4a3ddbb7cd29e33d47b37cdbf0f5ab70c2a/DESCRIPTION
+## 16 https://github.com/stewid/gix/blob/7e5bac365cad12fc5a5e9cbd8f4030bb0ebb3031/DESCRIPTION
+## 24 https://github.com/stewid/gix/blob/e7b9a4fd794bb1dd408f95db39a7eb461825122e/DESCRIPTION
+## 32 https://github.com/stewid/gix/blob/7d0970e2a2304abb92ddbd2f6cdf583e2ad31708/DESCRIPTION
+```
+
 ## Installation
 
 The following two R packages must be installed:
